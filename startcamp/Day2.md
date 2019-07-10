@@ -1,140 +1,90 @@
-# Git
+# Python을 통한 컴퓨터 조작
 
-`Git`은 `분산형 버전관리시스템(DVCS)`이다
+## 1. `OS`
 
-* window에서 `Git`을 사용하기 위해서는 `Git bash`를 반드시 설치해야 함.
-* 참고자료
-  * [Git Scm](https://git-scm.com/book/ko/v2)
-  * [누구나 쉽게 이해할 수 있는 Git  입문](https://backlog.com/git-tutorial/kr/intro/intro1_1.html)
+`os(operation system)` 운영체제의 약자로, 파이썬에서는 `os`모듈을 통해 컴퓨터를 조작할 수 있도록 도와준다.
 
+* `getcwd()`
 
-
-## Git 기본 명령어(로컬)
-
-* 로컬에서 처음 Git을 활용하는 경우 아래의 설정을 해줘야 한다.
-
-  ```bash
-  $ git config --global user.name '<Github username>'
-  $ git config --global user.email '<Github email>'
+  ```python
+  os.getcwd()
+  #=>'C:\\Users\\student\\Desktop\\startcamp'
   ```
 
-  커밋하는 사람(`author`)이 누구인지 설정!
+* `chdir(경로)`:해당하는 `경로`로 이동한다.
 
-  Github email이랑 다르면, Github에서 다른 사람이 커밋한 것으로 인식됨!
+  ```python
+  import os
+  os.chdir('./dummy/')
+  print(os.getcwd())
+  #=> 변경된 경로가 출력됨.
+  ```
 
-  **컴퓨터에서 한번만 설정해주면 된다.**
+* `listdir(경로)`:해당하는 `경로`에 있는 파일 및 폴더 이름들을 리스트로 반환한다.
 
-1. Git 저장소 설정
+  ```python
+  import os
+  print(os.listdir('.'))
+  #=> ['a.py', 'b.py', 'day2']
+  ```
 
-   ```bash
-   $ git init
-   Initialized empty Git repository in C:/Users/student/Desktop/새 폴더/.git/
-   
-   student@DESKTOP MINGW64 ~/Desktop/새 폴더 (master)
-   
+* `rename(기존 파일명, 변경할 파일명)`: `기존 파일명`을 `변경할 파일명`으로 변경한다.
+
+  ```python
+  import os
+  for filename in os.listdir('.'):
+      is.rename(filename, 'hi_'+filename)
+  ```
+
+  
+
+## 2. 파일 읽고 쓰기
+
+### 1. 파일 쓰기
+
+1. 기본 활용법
+
+   ```python
+   f = open('a.txt', 'w', encoding = 'utf-8')
+   f.write('안녕하세요')
+   f.close()
    ```
 
-   * `git init` 명령어를 입력하면, 해당 디렉토리에 `.git/` 폴더가 생성된다.
-   * 모든 git과 관련된 내용은 해당 폴더에 담겨있다.
-   * 저장소로 설정되었다면, `git bash`에서 `(master)` 가 나타난다.
+   * `open(파일명, 옵션, 인코딩)`
+     * 옵션
+       * `w` : write (덮어쓰기)
+       * `a`: append (이어쓰기)
+       * `r`: read (읽기)
+     * 인코딩 : 기본적으로 윈도우에서 한글은 `cp949` 이고, 일반적으로 많이 쓰는 인코딩은 `utf-8`이다. 
 
-2. Staging area(커밋 대상 목록)에 담기
+2. 컨택스트 매니저 `with` 구문 활용
 
-   ```bash
-   $ git add .
-   $ git add a.txt
-   $ git add startcamp/
-   ```
-
-   * `git add`  명령어를 통해 `Staging Area` 로 특정 파일 혹은 폴더를 `commit`할 목록
-
-     (`Staging area`,`INDEX `)에 담아 놓는다.
-
-   * 반드시 `git status` 명령어를 통해 내가 원하는 파일이 반영되었는지 확인한다.
-
-     ```bash
-     $ git status
-     ...
-     Changes to be committed:
-       (use "git rm --cached <file>..." to unstage)
-     
-             new file:   a.txt
-     ```
-
-3.  이력 남기기(`commit`)
-
-   ```bash
-   $ git commit -m '커밋메세지'
-   [master (root-commit) 7057eb6] 커밋메세지
-    1 file changed, 0 insertions(+), 0 deletions(-)
-    create mode 100644 a.txt
-   ```
-
-   * `commit`은 현재 소스코드의 상태를 **스냅샷** 찍는 것과 동일하다.
-
-   * `Staging Area`에 담겨 있는 내용을 이력으로 남긴다.
-
-   * 커밋메세지는 반드시 해당 이력의 내용을 정확하게 표현해야 한다.
-
-     (보통 오픈소스프로젝트, 회사 내에서 관련된 컨벤션(`회사내 규정 혹은 약속`)이 존재함.)
-
-4. 커밋이력 확인하기
-
-   ```bash
-   $ git log
-   commit 7057eb64d2b890bc58b83554faf08763aa12d145 (HEAD -> master)
-   Author: JISU-JEONG <jindex2411@naver.com>
-   Date:   Tue Jul 9 10:49:21 2019 +0900
-   
-       커밋메세지
-   ```
-
-   * `git log -n` 옵션을 주면, 최근 n개의 커밋을 보여준다.
-   * 커밋 이력을 남긴 이후에 커밋 메세지 변경, 삭제 등을 할 수 있는데 이 경우는 매우 조심해야 한다.
-
-5. **git 상태 확인**
-
-   **항상 모든 명령어를 입력하기 전에 아래의 명령어를 입력하는 습관을 들이자!**
-
-   ```bash
-   $ git status
+   ```python
+   with open('a.txt', 'w', encoding='utf-8') as f:
+       f.write('hi')
    ```
 
 
 
-## Git 원격 저장소 활용하기
+### 2. 파일 읽기
 
-원격 저장소 (`remote repository`)는 `github`,  `gitlab`,  `bitbucket` 등 다양한 서비스를 활용할 수 있다.
+* `read()` :  전체 내용을 하나의 문자열(`string`)로 가져온다.
 
-1. 원격 저장소(`remote repository`) 설정
+  ```python
+  with open('a.txt', 'r', encoding='utf-8') as f:
+      txt = f.read()
+  print(txt)
+  ```
 
-   ```bash
-   $ git remote add origin _https://github.com_
-   ```
+* `readlines()` : 각 라인의 내용을 원소로 가지는 리스트를 반환한다.
 
-   * 로컬 저장소에 최초에 한번만 등록하면 된다.
-   * 원격 저장소(remote)를 `origin`이라는 이름으로 정해진 url을 `등록(add)` 하는 것이다.
+  ```python
+  with open('a.txt', 'r', encoding='utf-8') as f:
+      lines = f.readlines()
+      
+  for line in lines:
+      print(line)
+  ```
 
-2. 원격 저장소로 `push`
+  
 
-   ```bash
-   $ git push origin master
-   ```
-
-   * `origin`으로 설정된 원격 저장소에 `push`한다.
-
-3. 원격 저장소에서 `pull`
-
-   ```bash
-   $ git pull origin master
-   ```
-
-   * 원격 저장소에 새로운 변경 사항이 있는 경우 `pull`을 통해 받아온다.
-
-4. `clone`
-
-   ```bash
-   $ git clone _url_
-   ```
-
-   * `clone`은 원격 저장소에서 최초에 받아올 때 활용한다.
