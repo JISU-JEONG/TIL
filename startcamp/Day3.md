@@ -91,3 +91,35 @@ HTML을 꾸며주기 위하여, `선택자(selector)`를 통해 특정한 elemen
 
    선택자 우선순위는 id 선택자 > class 선택자 > 태그 선택자 순서로 적용된다.
 
+
+
+## Flask Template Engine - jinja2
+
+Flask는 기본적으로 Template을 만들 때 `jinja2` 를 사용한다.
+
+
+
+1. 값 출력
+
+   ```jinja2
+   <h1> {{ name }}, 안녕? </h1>
+   ```
+
+2. 조건문
+
+   ```jinja2
+   {% if name == '용흠' %}
+   	<h1>반장님 안녕하세요.</h1>
+   {% else %}
+   	<h1>학생들 ㅎㅇ</h1>
+   {% endif %}
+   ```
+
+3. 반복문
+
+   ```jinja2
+   {% for menu in menu_list%}
+   	<li>{{ menu }}</li>
+   {% endfor %}
+   ```
+

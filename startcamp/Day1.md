@@ -119,7 +119,7 @@
    ```python
    # 0. 활용할 패키지를 불러온다.
    import requests
-   from bs4 import BeatifulSoup
+   from bs4 import BeautifulSoup
    # 1. url을 설정한다.
    url = 'https://finance.naver.com/sise/'
    # 2. 요청을 보내고, 그 결과의 내용을(text) response에 저장한다.
