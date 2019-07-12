@@ -6,113 +6,101 @@
 
    ```python
    # 저장은 =을 통해서 한다.
-   dust = 64 # 숫자(intger)
+   dust = 64 # 숫자(integer)
    name = '홍길동' # 문자열(string)
    is_summer = True # 참/거짓, Boolean(True/False)
    ```
 
    ```python
    # 리스트 활용법
-   my_list = [1,2,3, '정지수', '염겨레']
+   my_list = [1, 2, 3, '정지수', '염겨레']
    print(my_list[0]) # => 1
-   
    # 딕셔너리 활용법
-   my_dictionary = {'정지수': '남자','염겨레': '남자'}
+   my_dictionary = {'정지수': '남자', '염겨레': '남자'}
    print(my_dictionary['정지수']) # => '남자'
    ```
 
    
 
-2. 조건
+2. 조건문
 
    ```python
    if dust > 150:
        print('매우나쁨')
-   elif dust >80:
+   elif dust > 80:
        print('나쁨')
-   else:
+   else: 
        print('보통')
-       
    ```
 
    
 
-3. 반복
+3. 반복문
 
    ```python
    lunch_box = ['짬뽕', '류산슬덮밥', '돈육제육..']
    # 정해진 리스트 반복
    for menu in lunch_box:
-       # menu = lunch_box[0], ...., menu = ;lunch_box[2]
+       # menu = lunch_box[0], ...., menu = lunch_box[2]
        print(menu)
        
-   # n번 반복    
-   for menu in range(5):
-       print('Hello!!')
-       
+   # n번 반복
+   for i in range(5):
+       print('hello!!')
    ```
 
 4. 내장함수
 
+   > 내장함수는 별도로 import 구문이 필요없다.
+
    ```python
-   	내장함수는 별도로 import 구문이 필요없다.
-   
    print('hi')
    print(max([2, 4, 1])) #=> 4
    print(min([1, 2, 5])) #=> 1
    print(abs(-5)) #=> 5
-   print(len([1, 2, 3])) #=>3
-   
+   print(len([1, 2, 3])) #=> 3
    ```
-
-   
 
 5. 외장함수
 
-   외장함수는 반드시 import가 필요하다.
-
-   다만, 파이썬을 설치하면 그냥 불러서 쓸 수 있다.
+   > 외장함수는 반드시 import가 필요하다. 
+   >
+   > 다만, 파이썬을 설치하면 그냥 불러서 쓸 수 있다.
 
    ```python
    import random
-   numbers = range(1,46)
+   numbers = range(1, 46)
    lotto = random.sample(numbers, 6)
    print(sorted(lotto))
-   
    ```
-
-   
 
 6. 패키지
 
-   패키지는 반드시 설치를 필요로 한다.
+   > 패키지는 반드시 설치를 필요로 한다.
 
-   `pip install` 패키지명 으로 설치를 한다.
+   `pip install 패키지명` 으로 설치를 한다. 
 
-   ```python
+   ```bash
    $ pip install requests
-   import requests
-   requests.get(url)
-   
    ```
 
-
-
-
+   ```python
+   import requests
+   requests.get(url)
+   ```
 
 ## 파이썬을 통한 크롤링
 
 1. 필수 설치 패키지
 
    * `requests` : 파이썬으로 요청을 보내는 패키지
-   * `bs4` : 문자열을 html 등으로 구조화(파싱)를 해주는 패키지
 
-   ```bash
-   $ pip install requests
-   $ pip install bs4
-   ```
+   * `bs4`: 문자열을 html으로 구조화(파싱)를 해주는 패키지 
 
-   
+     ```bash
+     $ pip install requests
+     $ pip install bs4
+     ```
 
 2. 네이버에서 코스피지수 가져오기
 
@@ -129,10 +117,14 @@
    # 4. 원하는 값을 선택자(selector)를 활용해서 가져온다.
    kospi = soup.select_one('#KOSPI_now').text
    print(kospi)
-   
    ```
 
    
+
+
+
+
+
 
 
 
